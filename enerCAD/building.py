@@ -302,7 +302,7 @@ def envelope_MO(all_footprints_ref, all_footprints, row, envelope_building, geom
     roof_type = row['roof_type']
     wall_type = row['wall_type']       
     altitude = row['altitude']
-    height = row['height']    
+    height = row['height']   
     
     # Get index of MO footprint corresponding to 'bid'    
     r_index = all_footprints[all_footprints["bid"]==bid].index.to_list()[0]
@@ -659,10 +659,10 @@ def generate_envelope(footprints, buildings, calculate_volume_3D, geometry_colum
         # If use of MO cadaster footprint           
         elif envelope_type == '2.5D':
             # Skip buildings with footprint smaller than 1 m2 
-            if footprint.area >= 1:
-                envelope_building = envelope_MO(footprints_ref, footprints_copy, row, envelope_empty)
-                if calculate_volume_3D and volume_3D_available:
-                    _, volume = envelope_3D(row, envelope_empty)
+            # if footprint.area >= 1:
+            envelope_building = envelope_MO(footprints_ref, footprints_copy, row, envelope_empty)
+            if calculate_volume_3D and volume_3D_available:
+                _, volume = envelope_3D(row, envelope_empty)
                 
         # Calculate number of occupants
         area_person = row['area_person']

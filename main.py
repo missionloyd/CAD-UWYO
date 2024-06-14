@@ -8,7 +8,7 @@ Modified on Sat Jan 20 11:17:47 2024
 @author: Luke Macy
 """
 from modules.create_building_dataframe import create_building_dataframe
-from modules.assign_building_geometry import assign_building_geometry
+from modules. assign_building_geometry_osm import  assign_building_geometry_osm
 from modules.assign_building_type import assign_building_type
 
 import geopandas as gpd
@@ -145,11 +145,11 @@ def Module_1(buildings_df, GEOADMIN_BASE_URL,
     print('Buildings cut to zone of interest \n')
     
     ### Envelope processing ###
-    try:
-        # Get z coordinates of 1st vertex from 1st surface of 1st building's floor polygon as altitude by default for MO footprints
-        altitude_default = zone_floor.loc[0].geometry.exterior.coords[0][2]
-    except:
-        altitude_default = 0
+    # try:
+    #     # Get z coordinates of 1st vertex from 1st surface of 1st building's floor polygon as altitude by default for MO footprints
+    #     altitude_default = zone_floor.loc[0].geometry.exterior.coords[0][2]
+    # except:
+    altitude_default = 0
     
     # Create DataFrames containing all necessary information for each building
     print("Creating Buildings GeoDataFrame...")
@@ -221,9 +221,10 @@ do_plot = True
 def main():
 	# Call the function to create the dataframe
 	building_df = create_building_dataframe()
-	building_df = assign_building_geometry(building_df)
+	building_df =  assign_building_geometry_osm(building_df)
 	building_df = assign_building_type(building_df)
      
+    
 	# Generate individual buildings XML
 	# print('***Module 1*** \n')
 
@@ -234,7 +235,6 @@ def main():
 											EGID_column='asset_id')
 
 	# Print the resulting DataFrame
-	# print(building_df)
 
 if __name__ == "__main__":
     plt.close("all")
