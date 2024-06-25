@@ -16,28 +16,26 @@ def assign_building_geometry_osm(df, path='./data/geojson/spaces.json', key='nam
     geo_df = gpd.read_file(path)
     
     # Convert geometries to 3D using the height property
-    # geo_df['geometry_3d'] = geo_df.apply(lambda row: add_z_to_geometry(row['geometry'], (row['height'])), axis=1)
+    geo_df['geometry_3d'] = geo_df.apply(lambda row: add_z_to_geometry(row['geometry'], row.get('height', 10.668)), axis=1)
     
     # Create wall geometries assuming height is divided uniformly across the height
-    # geo_df['wall'] = geo_df['geometry_3d']
+    geo_df['wall'] = geo_df['geometry_3d']
     
     # # The floor and roof geometries could be approximations (bottom and top planes)
-    # geo_df['floor'] = geo_df.apply(lambda row: add_z_to_geometry(row['geometry'], 0), axis=1)
-    # geo_df['roof'] = geo_df['geometry_3d']
+    geo_df['floor'] = geo_df.apply(lambda row: add_z_to_geometry(row['geometry'], 0), axis=1)
+    geo_df['roof'] = geo_df['geometry_3d']
     
     # Create wall geometries by extruding the building footprint to the height
-    geo_df['wall'] = gpd.GeoSeries([None] * len(geo_df), crs=geo_df.crs)
-    geo_df['floor'] = gpd.GeoSeries([None] * len(geo_df), crs=geo_df.crs)
-    geo_df['roof'] = gpd.GeoSeries([None] * len(geo_df), crs=geo_df.crs)
-
+    # geo_df['wall'] = gpd.GeoSeries([None] * len(geo_df), crs=geo_df.crs)
+    # geo_df['floor'] = gpd.GeoSeries([None] * len(geo_df), crs=geo_df.crs)
+    # geo_df['roof'] = gpd.GeoSeries([None] * len(geo_df), crs=geo_df.crs)
 
     # Prepare geo_df to merge
     # geo_df = geo_df[[key, 'floor', 'wall', 'roof', 'geometry']]
     # geo_df.rename(columns={'geometry_3d': 'geometry'}, inplace=True)
     
     # Merge the geometries back into the original DataFrame
-    df = df.merge(geo_df, on=key, how='left')
-    df = df.dropna(subset=['geometry'])
+    df = df.merge(geo_df, on=key, how='inner')
     
     return df
 
