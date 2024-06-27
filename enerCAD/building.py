@@ -120,7 +120,12 @@ def generate_buildings(zone_all, API_url, altitude_default=0,
     buildings : geoDataFrame
         geoDataFrame containing the buildings informations. 
     '''
-    
+    projected_crs = 'EPSG:32613'  # UTM Zone 13N for Laramie, Wyoming
+    zone_floor = zone_floor.to_crs(projected_crs)
+    zone_roof = zone_roof.to_crs(projected_crs)
+    zone_wall = zone_wall.to_crs(projected_crs)
+    zone_all = zone_all.to_crs(projected_crs)
+
     floors_id = []
     roofs_id = []
     walls_id = []
@@ -232,7 +237,7 @@ def generate_buildings(zone_all, API_url, altitude_default=0,
             building_type = 1
 
         # Check for number of floors and set default if necessary
-        n_floors = row.get('n_floors', 1) or 1  # Default to 1 floor if unspecified or 0
+        n_floors = row.get('n_floors', 1) or 1  # Default to 1 floor (if unspecified or 0)
 
         # Height of building
         floor_height = 2.73 #standard floor height (from Perez)
@@ -538,37 +543,25 @@ def envelope_3D(row, envelope_building):
         pass    
 
     if Simulate_status == True:
-        # Calculate enclosed volume of polygon triangles
-        volume = 0.0
+        # Calculate enclosed volume of polygon triangles     
+        volume = 0.0    
         for surface in envelope.index:
-            polygon = envelope['geometry'].loc[surface]
-
-            # Extract all exterior coordinates except the last since it's a repeat of the first
-            coords = polygon.exterior.coords[:-1]
-            base_point = coords[0]
-            num_vertices = len(coords)
-
-            # Iterate over each segment to form triangles with the first vertex
-            for i in range(1, num_vertices - 1):
-                p1 = np.array(base_point)
-                p2 = np.array(coords[i])
-                p3 = np.array(coords[i + 1])
-
-                # Calculate projected area of the triangle
-                mean_z = np.mean([p1[2], p2[2], p3[2]])
-                z = np.array([0, 0, 1])  # Upward normal vector
-                v1 = p1
-                v2 = p2
-                v3 = p3
-                n = np.cross(v2 - v1, v3 - v1)  # Normal vector of the triangle
-                projected_triangle_area = 0.5 * np.linalg.norm(np.dot(n, z))
-
-                # Calculate volume between mean z and altitude of the building's floor
-                volume += projected_triangle_area * (mean_z - altitude)
+            triangle = envelope['geometry'].loc[surface]
+            p1,p2,p3,_ = triangle.exterior.coords
+            # Calculate projected area
+            mean_z = np.mean([p1[2],p2[2],p3[2]])           
+            z = [0,0,1] 
+            v1 = np.array(p1)
+            v2 = np.array(p2)
+            v3 = np.array(p3)
+            n = np.cross(v2-v1, v3-v1)
+            projected_triangle_area = 0.5*np.dot(n,z)
+            # Calculate volume between mean z and altitude of the building's floor 
+            volume += projected_triangle_area*(mean_z-altitude)
     else:
         volume = 0
 
-
+    print('volumn:', volume)
     
     return envelope, volume
     
