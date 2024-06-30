@@ -120,11 +120,6 @@ def generate_buildings(zone_all, API_url, altitude_default=0,
     buildings : geoDataFrame
         geoDataFrame containing the buildings informations. 
     '''
-    projected_crs = 'EPSG:32613'  # UTM Zone 13N for Laramie, Wyoming
-    zone_floor = zone_floor.to_crs(projected_crs)
-    zone_roof = zone_roof.to_crs(projected_crs)
-    zone_wall = zone_wall.to_crs(projected_crs)
-    zone_all = zone_all.to_crs(projected_crs)
 
     floors_id = []
     roofs_id = []

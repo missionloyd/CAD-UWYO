@@ -63,10 +63,10 @@ def create_xml_root(xml_file_to_copy, climate_file, horizon_file):
     
     # Horizon
     # read in the tab-separated file as a dataframe
-    # horizon_df = pd.read_csv(horizon_file, sep='\s+', header=None)
-    # # assign column names to the dataframe
-    # horizon_df.columns = ['phi', 'theta']
-    # # Add Far field obstructions
+    # horizon_df = pd.read_csv(horizon_file)    
+    # assign column names to the dataframe
+    # horizon_df.rename(columns={'latitude': 'phi', 'longitude': 'theta'}, inplace=True)
+    # Add Far field obstructions
     # xml.add_far_field_obstructions(district, horizon_df)
     
     # Add all the composites and profiles, taken from a source XML
@@ -185,6 +185,33 @@ def Module_1(buildings_df, GEOADMIN_BASE_URL,
     
     return buildings
 
+def simulate_citysim(directory_path, xml_file, citysim_filepath):
+    '''
+    Parameters
+    ----------
+    xml_file : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+    '''
+    
+    import subprocess
+    import time
+    start = time.time()
+    print('Process started')
+    print(f'Simulation of {xml_file}.xml...')
+
+    #run CitySim.exe with xml file
+    xml_path = os.path.join(directory_path, xml_file+".xml")
+    result = subprocess.run([citysim_filepath, '-q', f"{xml_path}"])
+    
+    end = time.time()
+    duration = end - start
+    m, s = divmod(duration, 60)
+    print('Simulation ended. Time :', "%.0f" %m,'min', "%.0f" %s,'s \n')
+
 ##################################################
 # 
 #         Information to provide
@@ -192,16 +219,16 @@ def Module_1(buildings_df, GEOADMIN_BASE_URL,
 ##################################################
 
 # Create geometry with swissbuildings3D
-create_geometry_3D = True                                    #TODO
+create_geometry_3D = True                                  
 
 # Calculate volume from swissbuildings3D
-calculate_volume_3D = True                                   #TODO
+calculate_volume_3D = True                               
 
 # CitySim.exe filepath
-citysim_filepath = r"---/CitySim.exe" #TODO
+citysim_filepath = r"/mnt/c/Users/Missionloyd/Downloads/CitySimPro/CitySimPro/Windows/CitySimPro.exe" #TODO
 
 # XML name to export
-directory_path = r"test"                                   #TODO
+directory_path = r"output"                                   
 
 os.makedirs(directory_path, exist_ok=True)
                                       
@@ -210,11 +237,11 @@ xml_DHN = "DHN_"+xml_name
 
 # XML source files
 xml_base_file = r"xml_base.xml"                                
-climate_file = r"---.cli"                                   #TODO
-horizon_file = r"---.hor"                                        #TODO
+climate_file = r"data/cli/UWYO.cli"                                 
+horizon_file = r"data/hor/UWYO.hor"                                      
 
 # Scenarios to simulate
-scenarios_list = [1,2,3,4,5,6]                                  #TODO
+scenarios_list = [1]                                  
 
 do_plot = True
 
@@ -228,13 +255,13 @@ def main():
 	# Generate individual buildings XML
 	# print('***Module 1*** \n')
 
-	buildings = Module_1(building_df, GEOADMIN_BASE_URL, 
+	Module_1(building_df, GEOADMIN_BASE_URL, 
 											directory_path, xml_name,
 											xml_base_file, climate_file, horizon_file,
 											create_geometry_3D, calculate_volume_3D,
 											EGID_column='asset_id')
-
-	# Print the resulting DataFrame
+	
+	# simulate_citysim(directory_path, xml_name, citysim_filepath)
 
 if __name__ == "__main__":
     plt.close("all")
