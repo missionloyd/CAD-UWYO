@@ -5,6 +5,9 @@ Created on Wed Feb 17 10:14:48 2021
 
 Modified on August 2023
 @author: Olivier Chavanne
+
+Modified on June 2024
+@author: Luke Macy
 """
 import numpy as np
 import geopandas as gpd
@@ -134,8 +137,9 @@ def generate_buildings(zone_all, API_url, altitude_default=0,
             print('GeoDataFrame progress: {:.2f}%'.format(100*count/(len(zone_all)-1)))
         else:
             print('GeoDataFrame progress: 100%')
+
         count += 1
-        bid += 1
+        bid = zone_all.loc[MO_index]['asset_id']
         row = zone_all.loc[MO_index]
         footprint = row.geometry
 
