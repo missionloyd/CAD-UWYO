@@ -1,86 +1,116 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<CitySim name="xml_example">
+<CitySim name="test">
 	<Simulation beginMonth="1" endMonth="12" beginDay="1" endDay="31"/>
-	<Climate location="file.cli" city="city"/>
 	<District>
 		<FarFieldObstructions>
 		</FarFieldObstructions>
-		
-		<Composite Uvalue="0.94" id="100" name="Neuchatel 1900-1945 adapted" category="Wall">
-		<Layer Conductivity="0.08" Cp="1000.0" Density="300.0" Name="Insulating Rendering" Thickness="0.02" />
-		<Layer Conductivity="0.81" Cp="1045.0" Density="1600.0" Name="rubbleMasonry" Thickness="0.4" />
-		<Layer Conductivity="0.021" Cp="800.0" Density="900.0" Name="Insulating plaster" Thickness="0.02" />
+		<Composite id="10" name="LesosaiBTK B 1" category="Floor">
+			<Layer Thickness="0.1000" Conductivity="2.3000" Cp="1000" Density="2300" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0500" Conductivity="0.0300" Cp="1400" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0001" Conductivity="0.2000" Cp="1400" Density="960" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0500" Conductivity="0.8500" Cp="1000" Density="1200" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0100" Conductivity="1.3000" Cp="838.799988" Density="2300" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		<Composite Uvalue="1.35" id="101" name="Neuchatel 1946-1960 adapted" category="Wall">
-			<Layer Conductivity="0.87" Cp="1100.0" Density="1800.0" Name="Rendering" Thickness="0.02" />
-			<Layer Conductivity="0.81" Cp="1045.0" Density="1600.0" Name="rubbleMasonry" Thickness="0.2" />
-			<Layer Conductivity="0.033" Cp="1005.0" Density="1.2" Name="Air gap" Thickness="0.06" />
-			<Layer Conductivity="0.8" Cp="900.0" Density="1600.0" Name="Hollow clay brick" Thickness="0.08" />
-			<Layer Conductivity="0.43" Cp="1000.0" Density="1200.0" Name="Plaster" Thickness="0.01" />
+		<Composite id="448" name="NONRESIDENTIAL_WALL_2007_2013" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1800" Conductivity="0.5800" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		<Composite Uvalue="1.03" id="102" name="Neuchatel 1961-1970 adapted" category="Wall">
-			<Layer Conductivity="0.87" Cp="1100.0" Density="1800.0" Name="Rendering" Thickness="0.02" />
-			<Layer Conductivity="0.8" Cp="900.0" Density="1600.0" Name="Hollow clay brick" Thickness="0.15" />
-			<Layer Conductivity="0.06" Cp="1450.0" Density="30.0" Name="Expanded polystyrene 10-50 kg/m3" Thickness="0.03" />
-			<Layer Conductivity="0.8" Cp="900.0" Density="1600.0" Name="Hollow clay brick" Thickness="0.06" />
-			<Layer Conductivity="0.43" Cp="1000.0" Density="1200.0" Name="Plaster" Thickness="0.01" />
+		<Composite id="3000" name="wall_0.1_Uvalue" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1000" Conductivity="0.010" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
+		</Composite>	
+		<Composite id="3001" name="wall_0.7_Uvalue" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1000" Conductivity="0.070" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
+		</Composite>	
+		<Composite id="3002" name="wall_1.3_Uvalue" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1000" Conductivity="0.130" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
+		</Composite>	
+		<Composite id="3003" name="wall_1.9_Uvalue" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1000" Conductivity="0.190" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
+		</Composite>	
+		<Composite id="3004" name="wall_2.5_Uvalue" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1000" Conductivity="0.250" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
+		</Composite>	
+		<Composite id="5000" Uvalue ="0.1"/>
+		<Composite id="5001" Uvalue ="0.7"/>
+		<Composite id="5002" Uvalue ="1.3"/>
+		<Composite id="5003" Uvalue ="1.9"/>
+		<Composite id="5004" Uvalue ="2.5"/>
+		<Composite id="455" Uvalue ="0.300000012"/>
+		<Composite id="444" Uvalue ="0.230000004"/>
+		<Composite id="440" Uvalue ="0.569999993"/>
+		<Composite id="442" Uvalue ="0.300000012"/>
+		<Composite id="453" Uvalue ="0.569999993"/>
+		<Composite id="457" name="RESIDENTIAL_WALL_1980_2004" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0159" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0500" Conductivity="0.0540" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0159" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		<Composite Uvalue="0.88" id="103" name="Neuchatel 1971-1980 adapted" category="Wall">
-			<Layer Conductivity="0.87" Cp="1100.0" Density="1800.0" Name="Rendering" Thickness="0.02" />
-			<Layer Conductivity="0.8" Cp="900.0" Density="1600.0" Name="Hollow clay brick" Thickness="0.15" />
-			<Layer Conductivity="0.06" Cp="1450.0" Density="30.0" Name="Expanded polystyrene 10-50 kg/m3" Thickness="0.04" />
-			<Layer Conductivity="0.8" Cp="900.0" Density="1600.0" Name="Hollow clay brick" Thickness="0.06" />
-			<Layer Conductivity="0.43" Cp="1000.0" Density="1200.0" Name="Plaster" Thickness="0.01" />
+		<Composite id="443" Uvalue ="0.300000012"/>
+		<Composite id="446" name="NONRESIDENTIAL_WALL_1980_2004" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0500" Conductivity="0.5400" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		<Composite Uvalue="0.90" id="104" name="Neuchatel 1981-1990 adapted" category="Wall">
-			<Layer Conductivity="0.87" Cp="1100.0" Density="1800.0" Name="Rendering" Thickness="0.02" />
-			<Layer Conductivity="0.06" Cp="1450.0" Density="30.0" Name="Expanded polystyrene 10-50 kg/m3" Thickness="0.05" />
-			<Layer Conductivity="2.4" Cp="1000.0" Density="2350.0" Name="Reinforced concrete" Thickness="0.17" />
-			<Layer Conductivity="0.43" Cp="1000.0" Density="1200.0" Name="Plaster" Thickness="0.01" />
+		<Composite id="449" name="NONRESIDENTIAL_WALL_POST2013" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1800" Conductivity="0.5800" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		<Composite Uvalue="0.69" id="105" name="Neuchatel 1991-2000 adapted" category="Wall">
-			<Layer Conductivity="0.87" Cp="1100.0" Density="1800.0" Name="Rendering" Thickness="0.02" />
-			<Layer Conductivity="0.06" Cp="1450.0" Density="30.0" Name="Expanded polystyrene 10-50 kg/m3" Thickness="0.07" />
-			<Layer Conductivity="2.4" Cp="1000.0" Density="2350.0" Name="Reinforced concrete" Thickness="0.17" />
-			<Layer Conductivity="0.43" Cp="1000.0" Density="1200.0" Name="Plaster" Thickness="0.01" />
+		<Composite id="458" name="RESIDENTIAL_WALL_2004_2007" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0159" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1200" Conductivity="0.0580" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0159" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		<Composite Uvalue="0.51" id="106" name="Neuchatel 2001-2010 adapted" category="Wall">
-			<Layer Conductivity="0.87" Cp="1100.0" Density="1800.0" Name="Rendering" Thickness="0.02" />
-			<Layer Conductivity="0.06" Cp="1450.0" Density="30.0" Name="Expanded polystyrene 10-50 kg/m3" Thickness="0.1" />
-			<Layer Conductivity="2.4" Cp="1000.0" Density="2350.0" Name="Reinforced concrete" Thickness="0.17" />
-			<Layer Conductivity="0.43" Cp="1000.0" Density="1200.0" Name="Plaster" Thickness="0.01" />
+		<Composite id="450" Uvalue ="0.961000025"/>
+		<Composite id="451" Uvalue ="0.959999979"/>
+		<Composite id="452" Uvalue ="0.600000024"/>
+		<Composite id="459" Uvalue ="1.20000005"/>
+		<Composite id="460" Uvalue ="1.20000005"/>
+		<Composite id="441" Uvalue ="0.379999995"/>
+		<Composite id="454" Uvalue ="0.379999995"/>
+		<Composite id="456" name="RESIDENTIAL_WALL_1980" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0159" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0250" Conductivity="0.0510" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0159" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		<Composite Uvalue="0.36" id="107" name="CSD Lesosai 2011-2015" category="Wall">
-			<Layer Conductivity="0.7" Cp="900" Density="1400" Name="Rendering" Thickness="0.02" />
-			<Layer Conductivity="0.046" Cp="1450.8" Density="30" Name="Expanded polystyrene 10-50 kg/m3" Thickness="0.12" />
-			<Layer Conductivity="2.4" Cp="1000.8" Density="2350.0" Name="Reinforced concrete" Thickness="0.17" />
-			<Layer Conductivity="0.99" Cp="849.6" Density="1800.0" Name="Plaster" Thickness="0.01" />
+		<Composite id="445" name="NONRESIDENTIAL_WALL_1980" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0250" Conductivity="0.0510" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		<Composite Uvalue="0.22" id="108" name="CSD Lesosai 2015-2020" category="Wall">
-			<Layer Conductivity="0.7" Cp="900" Density="1400" Name="Rendering" Thickness="0.02" />
-			<Layer Conductivity="0.036" Cp="1450.8" Density="30" Name="Expanded polystyrene 10-50 kg/m3" Thickness="0.16" />
-			<Layer Conductivity="2.4" Cp="1000.8" Density="2350.0" Name="Reinforced concrete" Thickness="0.17" />
-			<Layer Conductivity="0.99" Cp="849.6" Density="1800.0" Name="Plaster" Thickness="0.01" />
+		<Composite id="447" name="NONRESIDENTIAL_WALL_2004_2007" category="">
+			<Layer Thickness="0.0253" Conductivity="0.6918" Cp="837" Density="1858" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.2500" Conductivity="1.4800" Cp="1100" Density="2400" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.1200" Conductivity="0.5900" Cp="1000" Density="50" NRE="0" GWP="0" UBP="0"/>
+			<Layer Thickness="0.0127" Conductivity="0.1600" Cp="1090" Density="800" NRE="0" GWP="0" UBP="0"/>
 		</Composite>
-		
-		<Composite Uvalue="0.70" id="200" name="Neuchatel 1900-1945 adapted roof" category="Roof"/>
-		<Composite Uvalue="0.70" id="201" name="Neuchatel 1946-1960 adapted roof" category="Roof"/>
-		<Composite Uvalue="0.65" id="202" name="Neuchatel 1961-1970 adapted roof" category="Roof"/>
-		<Composite Uvalue="0.60" id="203" name="Neuchatel 1971-1980 adapted roof" category="Roof"/>
-		<Composite Uvalue="0.43" id="204" name="Neuchatel 1981-1990 adapted roof" category="Roof"/>
-		<Composite Uvalue="0.31" id="205" name="Neuchatel 1991-2000 adapted roof" category="Roof"/>
-		<Composite Uvalue="0.25" id="206" name="Neuchatel 2001-2010 adapted roof" category="Roof"/>
-		<Composite Uvalue="0.22" id="207" name="Neuchatel 2011-2020 adapted roof" category="Roof"/>
-		
-		<Composite Uvalue="1.60" id="300" name="Neuchatel 1900-1945 adapted floor" category="Floor"/>
-		<Composite Uvalue="1.50" id="301" name="Neuchatel 1946-1960 adapted floor" category="Floor"/>
-		<Composite Uvalue="1.30" id="302" name="Neuchatel 1961-1970 adapted floor" category="Floor"/>
-		<Composite Uvalue="1.10" id="303" name="Neuchatel 1971-1980 adapted floor" category="Floor"/>
-		<Composite Uvalue="0.68" id="304" name="Neuchatel 1981-1990 adapted floor" category="Floor"/>
-		<Composite Uvalue="0.49" id="305" name="Neuchatel 1991-2000 adapted floor" category="Floor"/>
-		<Composite Uvalue="0.35" id="306" name="Neuchatel 2001-2010 adapted floor" category="Floor"/>
-		<Composite Uvalue="0.25" id="307" name="Neuchatel 2011-2020 adapted floor" category="Floor"/>
-		
+		<Composite id="461" Uvalue ="0.790000021"/>
+		<Composite id="463" Uvalue ="0.600000024"/>
+		<Composite id="462" Uvalue ="0.600000024"/>
+
 		<OccupancyDayProfile id="1" name="Residential" p1="1.0" p2="1.0" p3="1.0" p4="1.0" p5="1.0" p6="1.0" p7="0.8" p8="0.6" p9="0.4" p10="0.4" p11="0.4" p12="0.6" p13="0.8" p14="0.6" p15="0.4" p16="0.4" p17="0.6" p18="0.8" p19="0.8" p20="0.8" p21="0.8" p22="1.0" p23="1.0" p24="1.0"/>
 		<OccupancyDayProfile id="2" name="Office" p1="0.0" p2="0.0" p3="0.0" p4="0.0" p5="0.0" p6="0.0" p7="0.0" p8="0.2" p9="0.4" p10="0.6" p11="0.8" p12="0.8" p13="0.4" p14="0.6" p15="0.8" p16="0.8" p17="0.6" p18="0.4" p19="0.0" p20="0.0" p21="0.0" p22="0.0" p23="0.0" p24="0.0"/>
 		<OccupancyDayProfile id="3" name="Garage" p1="0.0" p2="0.0" p3="0.0" p4="0.0" p5="0.0" p6="0.0" p7="0.0" p8="0.0" p9="0.2" p10="0.4" p11="0.6" p12="0.8" p13="0.8" p14="0.4" p15="0.6" p16="0.8" p17="0.8" p18="0.4" p19="0.2" p20="0.0" p21="0.0" p22="0.0" p23="0.0" p24="0.0"/>
@@ -89,7 +119,7 @@
 		<OccupancyDayProfile id="6" name="Hotel" p1="1.0" p2="1.0" p3="1.0" p4="1.0" p5="1.0" p6="1.0" p7="0.8" p8="0.4" p9="0.0" p10="0.0" p11="0.0" p12="0.0" p13="0.0" p14="0.0" p15="0.0" p16="0.0" p17="0.0" p18="0.0" p19="0.0" p20="0.0" p21="0.4" p22="0.6" p23="0.8" p24="1.0"/>
 		<OccupancyDayProfile id="7" name="Hospital" p1="1.0" p2="1.0" p3="1.0" p4="1.0" p5="1.0" p6="1.0" p7="1.0" p8="1.0" p9="1.0" p10="1.0" p11="1.0" p12="1.0" p13="1.0" p14="1.0" p15="1.0" p16="1.0" p17="1.0" p18="1.0" p19="1.0" p20="1.0" p21="1.0" p22="1.0" p23="1.0" p24="1.0"/>
 		<OccupancyDayProfile id="8" name="Education" p1="0.0" p2="0.0" p3="0.0" p4="0.0" p5="0.0" p6="0.0" p7="0.0" p8="0.2" p9="0.4" p10="0.8" p11="0.8" p12="0.4" p13="0.2" p14="0.4" p15="0.8" p16="0.8" p17="0.2" p18="0.0" p19="0.0" p20="0.0" p21="0.0" p22="0.0" p23="0.0" p24="0.0"/>
-		<OccupancyDayProfile id="9" name="Industrie" p1="0.2" p2="0.2" p3="0.2" p4="0.2" p5="0.2" p6="0.5" p7="0.8" p8="1.0" p9="1.0" p10="0.8" p11="1.0" p12="0.5" p13="0.8" p14="1.0" p15="1.0" p16="0.8" p17="0.8" p18="0.8" p19="0.5" p20="0.5" p21="0.5" p22="0.5" p23="0.2" p24="0.2"/>
+		<OccupancyDayProfile id="9" name="Industrial" p1="0.2" p2="0.2" p3="0.2" p4="0.2" p5="0.2" p6="0.5" p7="0.8" p8="1.0" p9="1.0" p10="0.8" p11="1.0" p12="0.5" p13="0.8" p14="1.0" p15="1.0" p16="0.8" p17="0.8" p18="0.8" p19="0.5" p20="0.5" p21="0.5" p22="0.5" p23="0.2" p24="0.2"/>
 		<OccupancyDayProfile id="10" name="Other" p1="0.0" p2="0.0" p3="0.0" p4="0.0" p5="0.0" p6="0.0" p7="0.0" p8="0.0" p9="0.0" p10="0.0" p11="0.0" p12="0.0" p13="0.0" p14="0.0" p15="0.0" p16="0.0" p17="0.0" p18="0.0" p19="0.0" p20="0.0" p21="0.0" p22="0.0" p23="0.0" p24="0.0"/>
 		<OccupancyDayProfile id="11" name="Sports installation" p1="0.0" p2="0.0" p3="0.0" p4="0.0" p5="0.0" p6="0.0" p7="0.0" p8="0.2" p9="0.6" p10="1.0" p11="1.0" p12="0.2" p13="0.2" p14="1.0" p15="1.0" p16="0.6" p17="0.1" p18="0.0" p19="0.0" p20="0.0" p21="0.0" p22="0.0" p23="0.0" p24="0.0"/>
 		

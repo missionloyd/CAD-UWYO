@@ -230,6 +230,7 @@ def generate_buildings(zone_all, API_url, altitude_default=0,
         parameters = dicts.THRESHOLDS[construction_year]
         wall_type, roof_type, floor_type, Ninf, glazing_u_value, glazing_g_value, glazing_ratio = parameters
 
+
         # Check for building type and set defaults if necessary
         building_type = row.get('building_type', 1)  # Default to residential if unspecified
         if building_type in [3, 10]:
@@ -676,7 +677,8 @@ def generate_envelope(footprints, buildings, calculate_volume_3D, geometry_colum
                 total_area = footprint.area*alpha_floor*n_floors
         else:
             total_area = volume/(floor_height-t_floors)
-        n_occupants = math.ceil(total_area/area_person) 
+
+        n_occupants = math.ceil(float(total_area)/float(area_person)) 
         
         
         # Create dataframe with 3D volume and number of occupants

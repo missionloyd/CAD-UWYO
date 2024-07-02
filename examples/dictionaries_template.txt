@@ -1,0 +1,49 @@
+TYPE = {
+    "Residential": 1,
+    "Office": 2,
+    "Garage": 3,
+    "Commercial": 4,
+    "Restaurant": 5,
+    "Hotel": 6,
+    "Hospital": 7,
+    "Education": 8,
+    "Industrial": 9,
+    "Other": 10,
+    "Sports installations": 11,
+}
+
+# year : (WallType, RoofType, FloorType, Ninf, glazing_Uvalue, glazing_Gvalue, glazing_ratio) (tuple)
+THRESHOLDS = {
+    1980: ,
+    2004: ,
+    2007: ,
+    2013: ,
+    2020: ,
+}
+
+# building type : SIA Surface [m2]/person (int)
+SURFACE = {
+    "1": 
+    "2":
+    "4":
+    "5":
+    "6":
+    "7":
+    "8": 
+    "9": 
+    "11": 
+    "12": 
+}
+
+# building type : minimum ambient temperature [°C] (int)
+TEMPERATURE = {
+    "1":
+    "2":
+    "4":
+    "5":
+    "6":
+    "7":
+    "8":
+    "9":
+    "11":
+}
