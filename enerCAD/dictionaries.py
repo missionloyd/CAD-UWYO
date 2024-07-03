@@ -1,3 +1,4 @@
+# building type
 TYPE = {
     "Residential": 1,
     "Office": 2,
@@ -10,6 +11,7 @@ TYPE = {
     "Industrial": 9,
     "Other": 10,
     "Sports installations": 11,
+    "Research": 12,
 }
 
 # year : (WallType, RoofType, FloorType, Ninf, glazing_Uvalue, glazing_Gvalue, glazing_ratio) (tuple)
@@ -34,19 +36,37 @@ SURFACE = {
     "9": 20,   # Industrial
     "10": 15,  # Other (assign a default or calculated value)
     "11": 20,  # Sports installations
+    "12": 10,  # Research
 }
 
-# building type : minimum ambient temperature [°C] (int)
+# building type : maximum ambient temperature [°C] (int)
 TEMPERATURE = {
-    "1": 20,  # Residential
-    "2": 20,  # Office
-    "3": 15,  # Garage (assuming a value since it wasn't provided)
-    "4": 20,  # Commercial
-    "5": 20,  # Restaurant
-    "6": 20,  # Hotel
-    "7": 22,  # Hospital
-    "8": 20,  # Education
-    "9": 18,  # Industrial
-    "10": 18,  # Other (assign a reasonable default)
-    "11": 18,  # Sports installations
+    "1": 26,  # Residential - Comfortable living conditions
+    "2": 24,  # Office - Standard office comfort
+    "3": 30,  # Garage - Less controlled, generally higher
+    "4": 25,  # Commercial - Retail spaces
+    "5": 24,  # Restaurant - Comfort for dining
+    "6": 24,  # Hotel - Guest comfort
+    "7": 22,  # Hospital - Stringent for patient care
+    "8": 23,  # Education - Suitable for learning environments
+    "9": 28,  # Industrial - Can vary widely, set higher due to machinery
+    "10": 25,  # Other - Default for miscellaneous buildings
+    "11": 26,  # Sports installations - Comfort for physical activity
+    "12": 23,  # Research - Controlled environments, similar to education
+}
+
+# building type : Occupancy Year Profile IDs with string keys (int)
+OCCUPANTS = {
+    "1": 0,  # Residential
+    "2": 1,  # Office
+    "3": 0,  # Garage (assuming minimal occupancy similar to residential off-day profile)
+    "4": 0,  # Commercial (generic low occupancy)
+    "5": 3,  # Restaurant
+    "6": 0,  # Hotel
+    "7": 0,  # Hospital
+    "8": 2,  # Education
+    "9": 0,  # Industrial
+    "10": 0, # Other
+    "11": 3, # Sports installations
+    "12": 4, # Research
 }

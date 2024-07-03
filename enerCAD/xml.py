@@ -8,6 +8,8 @@ from xml.etree.ElementTree import Element, SubElement, tostring, parse
 from xml.dom.minidom import parseString
 import numpy as np
 
+from enerCAD.dictionaries import OCCUPANTS, TEMPERATURE
+
 '''
 TO DO:
     
@@ -120,15 +122,14 @@ def add_composite(district, composite_id, composite_name, layers_df):
         layer = SubElement(composite, "Layer", dict_layer)
 
 
-def add_building(district, row, volume, simulate=True, tmin=21, tmax=26, 
-                 blinds_lambda=0.2,blinds_irradiance_cutoff=150):
+def add_building(district, row, volume, simulate=True, 
+                 blinds_lambda=0.2,blinds_irradiance_cutoff=100, key=0):
     # Building characteristics
     bid = row['bid']
     ventilation_rate = row['Ninf']
 
-    dict_building = {"id": str(bid), "key": str(bid), "Ninf": str(ventilation_rate),
-                     "Vi": str(volume), "Tmin": str(tmin), "Tmax": str(tmax),
-                     "BlindsLambda": str(blinds_lambda),
+    dict_building = {"id": str(bid), "key": str(key), "Ninf": str(ventilation_rate),
+                     "Vi": str(volume), "BlindsLambda": str(blinds_lambda),
                      "BlindsIrradianceCutOff": str(blinds_irradiance_cutoff),
                      "Simulate": str(simulate).lower()}
 
@@ -140,8 +141,7 @@ def add_heat_tank(building, v=50*1e-3, phi=200, rho=1000, cp=4180, tmin=20,
                   tmax=35, tcrit=90):
 
     dict_tank = {"V": str(v), "phi": str(phi), "rho": str(rho),
-                 "Cp": str(cp), "Tmin": str(tmin), "Tmax": str(tmax),
-                 "Tcritical": str(tcrit)}
+                "Cp": str(cp), "Tmin": str(tmin), "Tmax": str(tmax) }
 
     heat_tank = SubElement(building, "HeatTank", dict_tank)
     return heat_tank
@@ -178,6 +178,16 @@ def add_heat_source(building, begin_day=1, end_day=365):
     heat_source = SubElement(building, "HeatSource", dict_heat_source)
     return heat_source
 
+def add_cool_source(building, begin_day=1, end_day=365):
+    '''
+    begin_day : The default is January 1st.
+    end_day : The default is December 31st.
+    '''
+    
+    dict_cool_source = {"beginDay": str(begin_day), "endDay": str(end_day)}
+    cool_source = SubElement(building, "CoolSource", dict_cool_source)
+    return cool_source
+
 
 def add_boiler(heat_source, pmax=50000, eta_th=0.96):
     dict_boiler = {"name": "Boiler", "Pmax": str(pmax), "eta_th": str(eta_th)}
@@ -185,10 +195,19 @@ def add_boiler(heat_source, pmax=50000, eta_th=0.96):
     return boiler
 
 
-def add_zone(building, net_volume, zone_id=0, psi=0.2, ground_floor=True):
+def add_heat_pump(heat_source, pmax=10000000, eta_tech=0.3, ttarget=55, tsource="ground", 
+               depth=5, alpha=0.0700000003, position="vertical", z1=10):
+    dict_heat_pump = {"Pmax": str(pmax), "eta_tech": str(eta_tech), 
+                   "Ttarget": str(ttarget), "Tsource": str(tsource), "depth": str(depth),
+                   "alpha": str(alpha), "position": position, "z1": str(z1)}
+    heat_pump = SubElement(heat_source, "HeatPump", dict_heat_pump)
+    return heat_pump
+
+
+def add_zone(building, net_volume, zone_id=0, psi=0.2, tmin=17, tmax=19, ground_floor=False):
 
     dict_zone = {"id": str(zone_id), "volume": str(net_volume),
-                 "Psi": str(psi), "groundFloor": str(ground_floor).lower()}
+                 "Psi": str(psi), "Tmin": str(tmin), "Tmax": str(tmax), "groundFloor": str(ground_floor).lower()}
 
     zone = SubElement(building, "Zone", dict_zone)
     return zone
@@ -217,18 +236,17 @@ def add_imposed_heat_demand(building, values, start_day=1, start_hour=1,
     return heat_demand
 
 
-def add_occupants(zone, number_of_occupants=5, building_type=1, activity_type=None,
-                  dhw_type=None, stochastic=False):
+def add_occupants(zone, number_of_occupants=5, building_type=1, sensibleHeat=80, 
+                  sensibleHeatRadiantFraction=0.6, latentHeat=0, dhw_type=0):
 
     dict_occupants = {"n": str(number_of_occupants),
-                      "type": str(building_type), "Stochastic": str(stochastic).lower(),
-                      # "activityType":  str(activity_type),
-                      # "DHWType": str(dhw_type)
+                      "sensibleHeat": str(sensibleHeat),
+                      "sensibleHeatRadiantFraction": str(sensibleHeatRadiantFraction),
+                      "latentHeat": str(latentHeat),
+                      "type": str(building_type), 
+                      "DHWType": str(dhw_type)
                       }
-    if activity_type:
-        dict_occupants["activityType"] = str(activity_type)
-    if dhw_type:
-        dict_occupants["DHWType"] = str(dhw_type)
+
     occupants = SubElement(zone, "Occupants", dict_occupants)
     return occupants
 
@@ -303,6 +321,7 @@ def add_ground(district, terrain_df, groundtype=37, detailedSimulation=False, Sh
             dict_point = {"x": x, "y": y, "z": z}
             point = SubElement(surface, point_name, dict_point)
 
+# Custom for campuses #TODO
 def add_all_buildings(district, buildings, envelope, center_coordinates=(0,0)):
     for i in buildings.index:
         row = buildings.loc[i]
@@ -315,47 +334,28 @@ def add_all_buildings(district, buildings, envelope, center_coordinates=(0,0)):
         else:
             volume = volume_3D
             
-        # Add building with according simulation status
+        # # Add building with according simulation status
         Simulate_status = row['Simulate_status']
-        tmin = row['Tmin']
         if Simulate_status == True:
-            building = add_building(district, row, volume, tmin=tmin, tmax=26, blinds_lambda=0.2,
-                     blinds_irradiance_cutoff=150)
+            building = add_building(district, row, volume)
         else:
             building = add_building(district, row, volume, simulate=False)
-        zone = add_zone(building, volume)
-        
-        # Activity profile according to building type (no profile for 11 sports installations)
-        building_type = row['building_type']
-        if building_type == 11:
-            activity_type = None
-        else:
-            activity_type = building_type
-        
-        # DHW profile according to building type
-        dhw_type = row['building_type']
 
-        # Add heat tank with temperature setpoint of heat supplier depending on year of construction
-        year = row['year']
-        # Radiator
-        if year < 1990:
-            add_heat_tank(building, tmin=50, tmax=60, tcrit=90) #TODO
-        # Underfloor heating
-        else:
-            add_heat_tank(building, tmin=35, tmax=40, tcrit=90)        
+        add_heat_tank(building, v=0.01, phi=20, rho=1000, cp=4180, tmin=17, tmax=35)        
+        add_cool_tank(building, v=0.01, phi=20, rho=1000, cp=4180, tmin=5, tmax=20)       
         
-        # Add DHW tank according to number of occupants (0.05 m3/person, 3 m3 max.)
-        n_occupants = row['n_occupants']
-        if n_occupants != 0:
-            vol_DHW = 50*1e-3*n_occupants
-            if vol_DHW > 3:
-                vol_DHW = 3   
-            add_dhw_tank(building, v=vol_DHW)
-        add_occupants(zone, n_occupants, building_type, activity_type, dhw_type, stochastic=False)
-        
-        # Add boiler as heat source of 10 MW
         heat_source = add_heat_source(building)
-        add_boiler(heat_source, pmax=10e6)
+        add_heat_pump(heat_source)        
+        
+        cool_source = add_cool_source(building)
+        add_heat_pump(cool_source, ttarget=5)
+
+        tmax = TEMPERATURE[str(row['building_type'])]
+        zone = add_zone(building, net_volume=volume, tmax=tmax)
+
+        n_occupants = row['n_occupants']
+        building_type = OCCUPANTS[str(row['building_type'])]
+        add_occupants(zone, number_of_occupants=n_occupants, building_type=building_type)
 
         # Add building's envelope surfaces 
         bid = row['bid']

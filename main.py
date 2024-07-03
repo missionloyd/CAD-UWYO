@@ -246,20 +246,22 @@ scenarios_list = [1]
 do_plot = True
 
 def main():
-	# Call the function to create the dataframe
-	building_df = create_building_dataframe()
-	building_df =  assign_building_geometry_osm(building_df)
-	building_df = assign_building_type(building_df)
-     
-    
-	# Generate individual buildings XML
-	# print('***Module 1*** \n')
+    # Call the function to create the dataframe
+    building_df = create_building_dataframe()
+    building_df =  assign_building_geometry_osm(building_df)
+    building_df = assign_building_type(building_df)
+        
+    print(building_df[['name', 'building_type']])
+        
+        
+    # Generate individual buildings XML
+    # print('***Module 1*** \n')
 
-	Module_1(building_df, GEOADMIN_BASE_URL, 
-											directory_path, xml_name,
-											xml_base_file, climate_file, horizon_file,
-											create_geometry_3D, calculate_volume_3D,
-											EGID_column='asset_id')
+    Module_1(building_df, GEOADMIN_BASE_URL, 
+                        directory_path, xml_name,
+                        xml_base_file, climate_file, horizon_file,
+                        create_geometry_3D, calculate_volume_3D,
+                        EGID_column='asset_id')
 	
 	# simulate_citysim(directory_path, xml_name, citysim_filepath)
 

@@ -30,7 +30,7 @@ category_mapping = {
     "Fleet": "Other",
     "Athletics Facilities": "Sports installations",
     "Boat Ramp": "Other",
-    "Greenhouse/Office": "Commercial",
+    "Greenhouse/Office": "Research",
     "Laboratory/Office": "Research",
     "Office/Recreation": "Office",
     "Office/Special Use": "Office",

@@ -252,9 +252,6 @@ def generate_buildings(zone_all, API_url, altitude_default=0,
     
         # Area dedicated per person
         area_person = dicts.SURFACE[str(building_type)]
- 
-        # Minimum temperature setpoint   
-        Tmin = dicts.TEMPERATURE[str(building_type)]
     
         # Create GeoDataFrames
         all_footprints.append({'bid':bid, 
@@ -268,7 +265,7 @@ def generate_buildings(zone_all, API_url, altitude_default=0,
             'wall_type':wall_type, 'roof_type':roof_type, 'floor_type':floor_type,  
             'Ninf':Ninf, 'glazing_u_value':glazing_u_value, 
             'glazing_g_value':glazing_g_value, 'glazing_ratio':glazing_ratio,
-            'building_type':building_type, 'SRE_RegBL':SRE, 'Tmin':Tmin, 
+            'building_type':building_type, 'SRE_RegBL':SRE, 
             'volume_3D_available':volume_3D_available, 'volume_MO':volume_MO,
             'envelope_type':envelope_type, 'Simulate_status':Simulate_status
              }               
