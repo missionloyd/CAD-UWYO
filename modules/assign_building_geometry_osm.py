@@ -12,9 +12,9 @@ def add_z_to_geometry(geom, z):
     return transform(add_z_coord, geom)
 
 # UTM Zone 13N for Laramie, Wyoming
-def assign_building_geometry_osm(df, path='./data/geojson/spaces.json', key='name', crs='EPSG:32613'):
+def assign_building_geometry_osm(directory_path, df, key='name', crs='EPSG:32613'):
     # Load the GeoJSON file containing building footprints and height data
-    geo_df = gpd.read_file(path)
+    geo_df = gpd.read_file(f'{directory_path}/geojson/spaces.json')
 
     # Set crs
     geo_df['geometry'] = geo_df['geometry'].to_crs(crs)

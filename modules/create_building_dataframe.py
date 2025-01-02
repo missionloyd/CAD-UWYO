@@ -1,13 +1,13 @@
 import pandas as pd
 import json
 
-def create_building_dataframe():
+def create_building_dataframe(directory_path):
     # Load the CSV files
-    asset_df = pd.read_csv('./data/asset.csv', sep='|')
-    metadata_df = pd.read_csv('./data/metadata.csv', sep='|')
+    asset_df = pd.read_csv(f'{directory_path}/asset.csv', sep='|')
+    metadata_df = pd.read_csv(f'{directory_path}/metadata.csv', sep='|')
 
     # Load and parse the JSON file
-    with open('./data/geojson_metadata/names.json', 'r') as file:
+    with open(f'{directory_path}/geojson_metadata/names.json', 'r') as file:
         names_data = json.load(file)
 
     # Convert JSON keys to a DataFrame
