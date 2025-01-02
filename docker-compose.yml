@@ -1,0 +1,25 @@
+services:
+  cad-uwyo:
+    build:
+      context: .
+      dockerfile: Dockerfile-CAD-UWYO
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - app-network
+
+  citysim-solver:
+    build:
+      context: .
+      dockerfile: Dockerfile-CitySim-Solver
+    volumes:
+      - ./input_data:/usr/src/app
+      - ./output_data:/output_data
+    depends_on:
+      - cad-uwyo
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

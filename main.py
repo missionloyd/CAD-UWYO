@@ -57,17 +57,17 @@ def create_xml_root(xml_file_to_copy, climate_file, horizon_file):
     # Add Simulation days
     xml.add_simulation_days(root)
     # Add Climate
-    # xml.add_climate(root, climate_file)
+    xml.add_climate(root, climate_file)
     # Add District
     district = xml.add_district(root)
     
     # Horizon
     # read in the tab-separated file as a dataframe
-    # horizon_df = pd.read_csv(horizon_file)    
+    horizon_df = pd.read_csv(horizon_file)    
     # assign column names to the dataframe
-    # horizon_df.rename(columns={'latitude': 'phi', 'longitude': 'theta'}, inplace=True)
+    horizon_df.rename(columns={'latitude': 'phi', 'longitude': 'theta'}, inplace=True)
     # Add Far field obstructions
-    # xml.add_far_field_obstructions(district, horizon_df)
+    xml.add_far_field_obstructions(district, horizon_df)
     
     # Add all the composites and profiles, taken from a source XML
     xml.add_child_from_xml_to_district(district, xml_file_to_copy, 'Composite')
@@ -87,7 +87,7 @@ def create_xml_root(xml_file_to_copy, climate_file, horizon_file):
 
 
 def Module_1(buildings_df, GEOADMIN_BASE_URL,
-             directory_path, xml_name,
+             output_directory_path, xml_name,
              xml_base_file, climate_file, horizon_file,
              create_geometry_3D=False, calculate_volume_3D=False,
              EGID_column='RegBL_EGID'):
@@ -98,7 +98,7 @@ def Module_1(buildings_df, GEOADMIN_BASE_URL,
         DESCRIPTION.
     GEOADMIN_BASE_URL : TYPE
         DESCRIPTION.
-    directory_path : TYPE
+    output_directory_path : TYPE
         DESCRIPTION.
     xml_file_to_create : TYPE
         DESCRIPTION.
@@ -179,11 +179,11 @@ def Module_1(buildings_df, GEOADMIN_BASE_URL,
     xml.add_all_buildings(district, buildings, envelope, center_coordinates)
         
     # Write XML file
-    xml_path = os.path.join(directory_path, xml_name+".xml")     
+    xml_path = os.path.join(output_directory_path, xml_name+".xml")     
     xml.write_xml_file(root, xml_path)
     print(f"{xml_name}.xml file created \n")
     
-    return buildings
+    return
 
 def simulate_citysim(directory_path, xml_file, citysim_filepath):
     '''
@@ -212,6 +212,8 @@ def simulate_citysim(directory_path, xml_file, citysim_filepath):
     m, s = divmod(duration, 60)
     print('Simulation ended. Time :', "%.0f" %m,'min', "%.0f" %s,'s \n')
 
+    return result
+
 ##################################################
 # 
 #         Information to provide
@@ -224,21 +226,16 @@ create_geometry_3D = True
 # Calculate volume from swissbuildings3D
 calculate_volume_3D = True                               
 
-# CitySim.exe filepath
-citysim_filepath = r"/mnt/c/Users/Missionloyd/Downloads/CitySimPro/CitySimPro/Windows/CitySimPro.exe" #TODO
-
 # XML name to export
-directory_path = r"output"                                   
+input_directory_path = r"input_data"                                   
+output_directory_path = r"output_data"
 
-os.makedirs(directory_path, exist_ok=True)
-                                      
-xml_name = directory_path                                       
-xml_DHN = "DHN_"+xml_name
+xml_name = 'data'                                
 
 # XML source files
 xml_base_file = r"xml_base.xml"                                
-climate_file = r"data/cli/UWYO.cli"                                 
-horizon_file = r"data/hor/UWYO.hor"                                      
+climate_file = r"input_data/cli/UWYO.cli"                                 
+horizon_file = r"input_data/hor/UWYO.hor"                                      
 
 # Scenarios to simulate
 scenarios_list = [1]                                  
@@ -247,8 +244,8 @@ do_plot = True
 
 def main():
     # Call the function to create the dataframe
-    building_df = create_building_dataframe()
-    building_df =  assign_building_geometry_osm(building_df)
+    building_df = create_building_dataframe(input_directory_path)
+    building_df =  assign_building_geometry_osm(input_directory_path, building_df)
     building_df = assign_building_type(building_df)
         
     print(building_df[['name', 'building_type']])
@@ -258,12 +255,10 @@ def main():
     # print('***Module 1*** \n')
 
     Module_1(building_df, GEOADMIN_BASE_URL, 
-                        directory_path, xml_name,
+                        input_directory_path, xml_name,
                         xml_base_file, climate_file, horizon_file,
                         create_geometry_3D, calculate_volume_3D,
                         EGID_column='asset_id')
-	
-	# simulate_citysim(directory_path, xml_name, citysim_filepath)
 
 if __name__ == "__main__":
     plt.close("all")

@@ -1,0 +1,2 @@
+https://services3.arcgis.com/HVjI8GKrRtjcQ4Ry/ArcGIS/rest/services/3D_Campus_WFL/FeatureServer?token=
+https://uwyo.maps.arcgis.com/home/webscene/viewer.html?webscene=1e3cb38fcd664071b5f5490e34bbbb9b
