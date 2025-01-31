@@ -48,13 +48,13 @@ for cityObjectMember in root.findall('core:cityObjectMember', ns):
                                                         # Prepare the dataframe
                             df = pd.DataFrame(value_list, columns=['value'])
                             df['asset_id'] = building_id
-                            df['commodity_id'] = 1
+                            df['measurement_type_id'] = 1
                             df['ts'] = [start_ts + i * time_increment for i in range(len(value_list))]
                             df['is_prediction'] = 't'
                             # df['numberOfOccupants'] = number_of_occupants_value
 
                             # Reorder columns
-                            df = df[['asset_id', 'commodity_id', 'ts', 'is_prediction', 'value']]
+                            df = df[['asset_id', 'measurement_type_id', 'ts', 'is_prediction', 'value']]
                             dataframes.append(df)
 
 # Print or save the dataframes as needed
