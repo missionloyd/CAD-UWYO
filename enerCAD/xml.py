@@ -158,7 +158,7 @@ def add_dhw_tank(building, v=0.2, phi=2.5, rho=1000, cp=4180, tmin=60,
     return dhw_tank
 
 
-def add_cool_tank(building, v=20, phi=20, rho=1000, cp=4180, tmin=5,
+def add_cool_tank(building, v=20*1e-3, phi=20, rho=1000, cp=4180, tmin=5,
                   tmax=20):
 
     dict_tank = {"V": str(v), "phi": str(phi), "rho": str(rho),
