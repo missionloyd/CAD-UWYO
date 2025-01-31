@@ -1,6 +1,15 @@
 #!/bin/bash
-echo "setting development env variables in './.env.development'"
-export DOCKER_COMPOSE_ENV_FILE=./.env.development
 
-echo "building docker containers"
-docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE build --force-rm --no-cache && docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE up --detach && docker-compose --env-file $DOCKER_COMPOSE_ENV_FILE logs --follow
+# Load environment variables from .env.local
+echo "Loading env variables from './.env.local'"
+set -o allexport
+source ./.env.local
+set -o allexport -
+
+echo "Killing old Docker processes"
+docker compose rm -fs
+
+echo "Spinning up Docker containers"
+docker compose build && \
+docker compose up --detach && \
+docker compose logs --follow
