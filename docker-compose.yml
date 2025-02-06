@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile-CAD-UWYO
     volumes:
-      - .:/usr/src/app
+      - ./input_data/data.xml:/app/input_data/data.xml
     networks:
       - app-network
 
@@ -16,7 +16,20 @@ services:
       - ./input_data:/usr/src/app
       - ./output_data:/output_data
     depends_on:
-      - cad-uwyo
+      cad-uwyo:
+        condition: service_completed_successfully
+    networks:
+      - app-network
+
+  plot:
+    build:
+      context: .
+      dockerfile: Dockerfile-Plot
+    volumes:
+      - ./output_data:/app/output_data
+    depends_on:
+      citysim-solver:
+        condition: service_completed_successfully
     networks:
       - app-network
 
